@@ -1,6 +1,6 @@
 # Nigerian Passport Application Helper
 
-A web application to help Nigerians apply for passports independently by providing step-by-step guidance, document validation, and appointment management.
+A web application that helps Nigerians apply and get their Nigerian passport on their own - no agents or third party required. The app provides step-by-step guidance, document validation, and appointment management.
 
 ## Project Structure
 

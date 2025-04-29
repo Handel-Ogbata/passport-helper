@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Card, ProgressBar, Button, ListGroup, Accordion } from 'react-bootstrap';
 import { FaCheck, FaArrowRight, FaChevronDown } from 'react-icons/fa';
 
 const Application = () => {
@@ -159,103 +158,104 @@ const Application = () => {
   const renderDocumentRequirements = (item) => {
     if (currentStep === 1 && item.requirements) {
       return (
-        <Accordion>
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>
-              <small className="text-muted">View Requirements</small>
-            </Accordion.Header>
-            <Accordion.Body>
-              <div className="mb-2">
-                <strong>Format:</strong> {item.requirements.format}
+        <div className="requirements-accordion">
+          <button 
+            className="requirements-toggle"
+            onClick={(e) => {
+              e.currentTarget.parentElement.classList.toggle('active');
+            }}
+          >
+            <span>View Requirements</span>
+            <FaChevronDown />
+          </button>
+          <div className="requirements-content">
+            <div className="requirement-item">
+              <strong>Format:</strong> {item.requirements.format}
+            </div>
+            <div className="requirement-item">
+              <strong>Size:</strong> {item.requirements.size}
+            </div>
+            {item.requirements.dimensions && (
+              <div className="requirement-item">
+                <strong>Dimensions:</strong> {item.requirements.dimensions}
               </div>
-              <div className="mb-2">
-                <strong>Size:</strong> {item.requirements.size}
+            )}
+            {item.requirements.background && (
+              <div className="requirement-item">
+                <strong>Background:</strong> {item.requirements.background}
               </div>
-              {item.requirements.dimensions && (
-                <div className="mb-2">
-                  <strong>Dimensions:</strong> {item.requirements.dimensions}
-                </div>
-              )}
-              {item.requirements.background && (
-                <div className="mb-2">
-                  <strong>Background:</strong> {item.requirements.background}
-                </div>
-              )}
-              <div className="mb-2">
-                <strong>Guidelines:</strong>
-                <ul className="mb-2">
-                  {item.requirements.guidelines.map((guideline, index) => (
-                    <li key={index}>{guideline}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <a href={item.requirements.link} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline-primary">
-                  View Tool
-                </a>
-              </div>
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+            )}
+            <div className="requirement-item">
+              <strong>Guidelines:</strong>
+              <ul>
+                {item.requirements.guidelines.map((guideline, index) => (
+                  <li key={index}>{guideline}</li>
+                ))}
+              </ul>
+            </div>
+            <a 
+              href={item.requirements.link} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn-secondary"
+            >
+              View Tool
+            </a>
+          </div>
+        </div>
       );
     }
     return null;
   };
 
   return (
-    <Container>
-      <Row className="mb-4">
-        <Col>
-          <h1 className="text-center">Passport Application Guide</h1>
-          <ProgressBar 
-            now={(currentStep / totalSteps) * 100} 
-            label={`Step ${currentStep} of ${totalSteps}`}
-            className="mb-4"
+    <div className="application-container">
+      <div className="application-header">
+        <h1>Passport Application Guide</h1>
+        <div className="progress-container">
+          <div 
+            className="progress-bar" 
+            style={{ width: `${(currentStep / totalSteps) * 100}%` }}
           />
-        </Col>
-      </Row>
+          <span className="progress-text">Step {currentStep} of {totalSteps}</span>
+        </div>
+      </div>
 
-      <Row>
-        <Col md={8} className="mx-auto">
-          <Card>
-            <Card.Body>
-              <Card.Title>{steps[currentStep - 1].title}</Card.Title>
-              <Card.Text>{steps[currentStep - 1].description}</Card.Text>
-              <ListGroup variant="flush">
-                {steps[currentStep - 1].items.map((item, index) => (
-                  <ListGroup.Item key={index}>
-                    <div className="d-flex justify-content-between align-items-start">
-                      <div>
-                        <FaCheck className="text-success me-2" />
-                        {typeof item === 'string' ? item : item.name}
-                      </div>
-                    </div>
-                    {renderDocumentRequirements(item)}
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
-            </Card.Body>
-          </Card>
-
-          <div className="d-flex justify-content-between mt-4">
-            <Button 
-              variant="outline-primary" 
-              onClick={handlePrevious}
-              disabled={currentStep === 1}
-            >
-              Previous
-            </Button>
-            <Button 
-              variant="primary" 
-              onClick={handleNext}
-              disabled={currentStep === totalSteps}
-            >
-              Next <FaArrowRight className="ms-2" />
-            </Button>
+      <div className="application-content">
+        <div className="step-card">
+          <h2>{steps[currentStep - 1].title}</h2>
+          <p className="step-description">{steps[currentStep - 1].description}</p>
+          <div className="items-list">
+            {steps[currentStep - 1].items.map((item, index) => (
+              <div key={index} className="list-item">
+                <div className="item-header">
+                  <FaCheck className="check-icon" />
+                  <span>{typeof item === 'string' ? item : item.name}</span>
+                </div>
+                {renderDocumentRequirements(item)}
+              </div>
+            ))}
           </div>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+
+        <div className="navigation-buttons">
+          <button 
+            className="btn-secondary"
+            onClick={handlePrevious}
+            disabled={currentStep === 1}
+          >
+            Previous
+          </button>
+          <button 
+            className="btn-primary"
+            onClick={handleNext}
+            disabled={currentStep === totalSteps}
+          >
+            Next <FaArrowRight className="arrow-icon" />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

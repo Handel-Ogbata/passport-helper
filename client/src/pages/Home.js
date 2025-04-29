@@ -1,63 +1,54 @@
 import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import passportImg from '../assets/passport.png';
 
 const Home = () => {
   return (
-    <Container>
-      <Row className="mb-4">
-        <Col>
-          <h1 className="text-center">Welcome to Passport Helper</h1>
-          <p className="text-center lead">
-            Your guide to applying for a Nigerian passport independently
+    <div className="home-container">
+      <div className="hero-section">
+        <div className="hero-content">
+          <h1 className="hero-title">
+            Let's make passport<br />
+            application easier.
+          </h1>
+          <p className="hero-subtitle">
+            Navigate through the Nigerian passport application process with ease.
+            No more confusion, just clear step-by-step guidance.
           </p>
-        </Col>
-      </Row>
+          <div className="hero-buttons">
+            <Link to="/application" className="btn-primary">
+              Get Started
+            </Link>
+            <Link to="/application" className="btn-secondary">
+              Learn More
+            </Link>
+          </div>
+        </div>
+        <div className="hero-image">
+          <img 
+            src={passportImg} 
+            alt="Nigerian Passport" 
+            className="passport-image" 
+          />
+          <div className="hero-background-circle"></div>
+        </div>
+      </div>
 
-      <Row className="g-4">
-        <Col md={4}>
-          <Card>
-            <Card.Body>
-              <Card.Title>Step-by-Step Guide</Card.Title>
-              <Card.Text>
-                Follow our comprehensive guide to apply for your passport without any third-party assistance.
-              </Card.Text>
-              <Button as={Link} to="/application" variant="primary">
-                Start Application
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-
-        <Col md={4}>
-          <Card>
-            <Card.Body>
-              <Card.Title>Office Reviews</Card.Title>
-              <Card.Text>
-                Read reviews and ratings of passport offices from other applicants.
-              </Card.Text>
-              <Button as={Link} to="/reviews" variant="primary">
-                View Reviews
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-
-        <Col md={4}>
-          <Card>
-            <Card.Body>
-              <Card.Title>Report Issues</Card.Title>
-              <Card.Text>
-                Report any corruption or issues you encounter during the application process.
-              </Card.Text>
-              <Button as={Link} to="/report" variant="primary">
-                Report Issue
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+      <div className="features-section">
+        <div className="feature-card">
+          <h3>Document Guide</h3>
+          <p>Clear checklist of all required documents and how to prepare them correctly.</p>
+        </div>
+        <div className="feature-card">
+          <h3>Step-by-Step Process</h3>
+          <p>Follow our detailed guide through each stage of the application process.</p>
+        </div>
+        <div className="feature-card">
+          <h3>Application Support</h3>
+          <p>Get helpful tips and common pitfalls to avoid during your application.</p>
+        </div>
+      </div>
+    </div>
   );
 };
 
